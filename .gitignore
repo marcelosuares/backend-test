@@ -1,0 +1,27 @@
+#Idea#
+.idea
+*.iml
+target/
+
+#Eclipse#
+.project
+.settings/
+.classpath
+.project
+
+#Netbeans#
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# Class Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
