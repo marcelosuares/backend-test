@@ -57,6 +57,9 @@ public class SaveLog {
         return null;
     }
 
+    /**
+     * checa se o diretório do log está criado, senão tenta criar
+     */
     private static void checkDiretoryLog() {
 
         try {
