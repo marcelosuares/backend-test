@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author Marcelo S. Silva <marcelo.silva@unimedsaocarlos.com.br>
+ * @author Marcelo Soares <marcelo.suares@yahoo.com.br>
  */
 public class TextUtils {
 
