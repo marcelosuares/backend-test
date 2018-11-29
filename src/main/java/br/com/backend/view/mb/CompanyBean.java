@@ -1,7 +1,7 @@
 package br.com.backend.view.mb;
 
-import br.com.backend.api.client.CoinApiClient;
-import br.com.backend.api.client.CompanyApiClient;
+import br.com.backend.api.ws.rest.client.CoinClient;
+import br.com.backend.api.ws.rest.client.CompanyClient;
 import br.com.backend.business.facade.CompanyFacade;
 import br.com.backend.business.model.Company;
 import br.com.backend.business.util.log.ConvertStackTrace;
@@ -34,10 +34,10 @@ public class CompanyBean implements Serializable {
     private CompanyFacade companyFacade;
 
     @EJB
-    private CompanyApiClient companyApiClient;
+    private CompanyClient companyApiClient;
 
     @EJB
-    private CoinApiClient coinApiClient;
+    private CoinClient coinApiClient;
 
     private List<Company> companyList;
     private List<Company> companyListTmp;
