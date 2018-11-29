@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 /**
  * classe reponsavel por fazer a formatação de data e hora na view
  *
- * @author Marcelo S. Silva <marcelo.silva@unimedsaocarlos.com.br>
+ * @author Marcelo Soares <marcelo.suares@yahoo.com.br>
  */
 @ManagedBean
 @ViewScoped
