@@ -1,0 +1,95 @@
+.btn-success {
+
+    color: white !important;
+    background-color: #5cb85c !important;
+}
+
+.btn-info {
+
+    color: white !important;
+    background-color: #5bc0de !important;
+}
+
+.btn-danger {
+
+    color: white !important;
+    background-color: #d9534f !important;
+}
+
+.btn-warning {
+
+    color: white !important;
+    background-color: #f0ad4e !important;
+}
+
+.btn-primary {
+
+    color: white !important;
+    background-color: #337ab7 !important;
+}
+
+.btn-very-small {
+
+    width: 25px;
+    height: 25px;
+    margin-bottom: 2px;
+}
+
+.div-btn-very-small-icon {
+
+    margin-top: -5px;
+    margin-left: -6px;
+}
+
+.btn-small {
+
+    width: 40px;
+    height: 30px;
+    margin-bottom: 2px;
+}
+
+.div-btn-small-icon {
+
+    margin-top: -2px;
+}
+
+.btn-medium {
+
+    width: 110px;
+}
+
+.btn-large {
+
+    width: 200px;
+}
+
+.btn-space-left {
+
+    margin-left: 10px;
+}
+
+.panel-dialog {
+
+    margin: -10px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.panelgrid-1 {
+
+    width: 100% !important;
+}

@@ -1,0 +1,72 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="remove-dialog" 
+              widgetVar="remove-dialog" 
+              showHeader="false"                          
+              modal="true" 
+              resizable="false"
+              closable="false" 
+              width="300px"   
+              responsive="true"
+              hideEffect="fade"
+              showEffect="fade" 
+              >     
+
+        <h:form id="remove-form">                             
+            <div class="panel panel-default panel-dialog">
+
+                <!-- HEADER -->
+                <div class="panel-heading align-center">
+                    <b style="font-size: 16px">
+                        <i class="fa fa-minus" /> #{bundle['label.5kj34kj4']}                                               
+                    </b>                           
+                </div>
+
+                <!-- BODY -->
+                <div class="panel-body">
+                    <div class="row" style="padding-left: 5px; padding-right: 5px">
+
+                        <div>
+                            <h4>
+                                <b>
+                                    #{companyBean.company.name}
+                                </b>
+                            </h4>
+                        </div>
+                        <div>
+
+                            <p>
+                                #{bundle['label.9zwnfgyl']}
+                            </p>
+
+                        </div>
+
+                        <p:separator />
+                        
+                        <div align="center">
+
+                            <p:commandLink actionListener="#{companyBean.removeCompany()}"                                           
+                                           styleClass="btn btn-danger btn-medium"
+                                           >                                                
+
+                                <i class="fa fa-check" /> #{bundle['label.3jj404kj']}
+                            </p:commandLink>
+
+                            <p:commandLink onclick="PF('remove-dialog').hide()"
+                                           styleClass="btn btn-default btn-medium btn-space-left"                                           
+                                           >                                                
+
+                                <i class="fa fa-times" /> #{bundle['label.4kfh4jhd']}
+                            </p:commandLink>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </p:dialog>
+
+</ui:fragment>

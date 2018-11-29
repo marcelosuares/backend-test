@@ -1,0 +1,108 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="address-dialog" 
+              widgetVar="address-dialog" 
+              showHeader="false"                          
+              modal="true" 
+              resizable="false"
+              closable="false" 
+              width="525px"   
+              responsive="true"
+              hideEffect="fade"
+              showEffect="fade"
+              >     
+
+        <h:form id="address-form">                             
+            <div class="panel panel-default panel-dialog">
+
+                <!-- HEADER -->
+                <div class="panel-heading align-center">                               
+                    <b style="font-size: 16px">
+
+                        <i class="fa fa-home" /> #{bundle['label.65kk4jfi']}                        
+
+                    </b>                           
+                </div>
+
+                <!-- BODY -->
+                <div class="panel-body">
+                    <div class="control-group">
+
+                        <h:panelGrid columns="1" styleClass="panelgrid-1">
+                            <h:outputText value="#{bundle['label.98ehjdh9']}:" />
+                            <p:inputText value="#{companyBean.company.companyAddress.street}" 
+                                         readonly="true" 
+                                         styleClass="form-control" 
+                                         />
+                        </h:panelGrid>
+                        
+                        <p />
+
+                        <h:panelGrid columns="1" styleClass="panelgrid-1">
+                            <h:outputText value="#{bundle['label.48djk589']}:" />
+                            <p:inputText value="#{companyBean.company.companyAddress.number}" 
+                                         readonly="true" 
+                                         styleClass="form-control"
+                                         />
+                        </h:panelGrid>
+                        
+                        <p />
+
+                        <h:panelGrid columns="1" styleClass="panelgrid-1">
+                            <h:outputText value="#{bundle['label.2743khdu']}:" />
+                            <p:inputText value="#{companyBean.company.companyAddress.complement}" 
+                                         readonly="true" 
+                                         styleClass="form-control"
+                                         />
+                        </h:panelGrid>
+                        
+                        <p />
+
+                        <h:panelGrid columns="1" styleClass="panelgrid-1">
+                            <h:outputText value="#{bundle['label.94huehw3']}:" />
+                            <p:inputText value="#{companyBean.company.companyAddress.cep}" 
+                                         readonly="true" 
+                                         styleClass="form-control"
+                                         />
+                        </h:panelGrid>
+                        
+                        <p />
+
+                        <h:panelGrid columns="1" styleClass="panelgrid-1">
+                            <h:outputText value="#{bundle['label.4bhh4ikh']}:" />
+                            <p:inputText value="#{companyBean.company.companyAddress.neighborhood}" 
+                                         readonly="true" 
+                                         styleClass="form-control"
+                                         />
+                        </h:panelGrid>
+                        
+                        <p />
+
+                        <h:panelGrid columns="1" styleClass="panelgrid-1">
+                            <h:outputText value="#{bundle['label.5978fk4j']}:" />
+                            <p:inputText value="#{companyBean.company.companyAddress.city}" 
+                                         readonly="true" 
+                                         styleClass="form-control"
+                                         />
+                        </h:panelGrid>
+
+                    </div>    
+
+                    <p:separator />
+
+                    <div align="center">
+
+                        <p:commandLink onclick="PF('address-dialog').hide()"                                       
+                                       styleClass="btn btn-default btn-medium"
+                                       >                                                
+                            <i class="fa fa-times" /> #{bundle['label.3jkj57jk']}
+                        </p:commandLink>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </p:dialog>
+</ui:fragment>

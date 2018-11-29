@@ -3,24 +3,221 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:head>
-        
+
         <title>#{bundle['label.3k3kd9']}</title>
-        
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
+
         <h:outputStylesheet library="webjars" name="bootstrap/3.3.6/css/bootstrap.min.css"/>
-        <h:outputStylesheet library="webjars" name="font-awesome/4.6.2/css/font-awesome.min-jsf.css"/>
+        <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.min-jsf.css"/>
         <h:outputStylesheet library="own" name="css/default.css"/>
-        
+
+        <h:outputScript library="webjars" name="bootstrap/3.3.6/js/bootstrap.min.js"/>
+
     </h:head>
-    
+
     <h:body>
-       
-       
-        
+
+        <!-- Menssagem Growl-->
+        <p:growl id="growl" 
+                 widgetVar="growl" 
+                 showSummary="false" 
+                 showDetail="true" 
+                 autoUpdate="true" 
+                 life="10000"
+                 />
+
+        <div class="container">
+
+            <div class="page-header">
+                <h1>#{bundle['label.3k3kd9']}</h1>
+                <p class="lead">#{bundle['label.33ldfkjd']}</p>
+            </div>
+            <h:form id="geral-form" class="form-horizontal">
+
+                <ui:fragment rendered="#{companyBean.showList eq true}">
+
+                    <div class="input-group pull-left">
+
+                        <!-- Adicionar -->
+                        <p:commandLink styleClass="btn btn-primary btn-medium"    
+                                       actionListener="#{companyBean.prepareNewCompany()}"
+                                       >
+                            <i class="fa fa-plus"/> #{bundle['label.70k7xhfu']}
+                        </p:commandLink>
+
+                    </div>
+
+                    <div class="input-group pull-right">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-search fa-fw"/>
+                            </div>
+                            <p:remoteCommand name="filter" 
+                                             update="datatable-1" 
+                                             actionListener="#{companyBean.search()}" 
+                                             global="false"
+                                             />
+
+                            <p:inputText value="#{companyBean.searchText}"
+                                         onkeyup="filter()"
+                                         style="width: 300px" 
+                                         placeholder="#{bundle['label.1m1xzy39']}" 
+                                         />
+                        </div>
+                    </div>
+
+                    <div style="padding-top: 40px">
+                        <p:dataTable id="datatable-1"     
+                                     widgetVar="datatable-1"
+                                     value="#{companyBean.companyList}"
+                                     var="company"
+                                     sortBy="#{company.name}"
+                                     emptyMessage="#{bundle['label.66ietari']}"
+                                     paginator="true" rows="10" pageLinks="5"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="#{bundle['label.7clebj8y']}: {currentPage} #{bundle['label.7v0wvsgr']} {totalPages}"
+                                     >   
+
+                            <f:facet name="header">
+                                <p:inputText id="globalFilter" style="display: none"/>
+                                <div style="text-align: left">
+                                    <small>
+                                        #{bundle['label.13ah52xx']}: #{companyBean.companyList.size()}
+                                    </small>
+                                </div>                                                        
+                            </f:facet>
+
+                            <p:column headerText="#{bundle['label.3893kjks']}" 
+                                      sortBy="#{company.cnpj}"                                                     
+                                      >                                                
+                                <h:outputText value="#{company.cnpj}" />
+                            </p:column>
+
+                            <p:column headerText="#{bundle['label.34krkwh3']}" 
+                                      sortBy="#{company.name}"                                                     
+                                      >                                                
+                                <h:outputText value="#{company.name}" />
+                            </p:column>
+
+                            <p:column headerText="#{bundle['label.934dfks0']}" 
+                                      sortBy="#{company.email}"                                                     
+                                      >                                                
+                                <h:outputText value="#{company.email}" />
+                            </p:column>                        
+
+                            <p:column width="60" 
+                                      styleClass="align-center"
+                                      >
+
+                                <p:commandLink actionListener="#{companyBean.setCompany(company)}"
+                                               styleClass="btn btn-default btn-small"    
+                                               update=":address-form"
+                                               onclick="PF('address-dialog').show()"                                                                  
+                                               title="#{bundle['label.65kk4jfi']}"
+                                               >
+
+                                    <div class="div-btn-small-icon">
+                                        <i class="fa fa-home" />
+                                    </div>
+                                </p:commandLink>
+
+                            </p:column>
+
+                            <p:column width="60" 
+                                      styleClass="align-center"
+                                      >
+
+                                <p:commandLink actionListener="#{companyBean.setCompany(company)}"
+                                               styleClass="btn btn-default btn-small"    
+                                               update=":coin-form"
+                                               onclick="PF('coin-dialog').show()"                                                                  
+                                               title="#{bundle['label.5khfuh58']}"
+                                               >
+
+                                    <div class="div-btn-small-icon">
+                                        <i class="fa fa-money" />
+                                    </div>
+                                </p:commandLink>
+
+                            </p:column>
+
+                            <p:column width="60" 
+                                      styleClass="align-center"
+                                      >
+
+                                <p:commandLink actionListener="#{companyBean.setCompany(company)}"
+                                               styleClass="btn btn-default btn-small"    
+                                               update=":remove-form"
+                                               onclick="PF('remove-dialog').show()"                                                                  
+                                               title="#{bundle['label.5kj34kj4']}"
+                                               >
+
+                                    <div class="div-btn-small-icon">
+                                        <i class="fa fa-minus" />
+                                    </div>
+                                </p:commandLink>
+
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </ui:fragment>
+
+                <ui:fragment rendered="#{companyBean.showList eq false}">
+
+                    <h3>#{bundle['label.353jf83l']}</h3>
+                    <p:panel header="#{bundle['label.534kjgj3']}">
+
+                        <h:panelGrid columns="1">
+
+                            <h:outputText value="#{bundle['label.3893kjks']}:" />
+                            <p:inputMask value="#{companyBean.company.cnpj}" mask="99.999.999/9999-99"/>
+
+                            <p />
+
+                            <p:commandLink actionListener="#{companyBean.checkCnpj()}"                                           
+                                           styleClass="btn btn-success btn-medium"
+                                           >                                                
+
+                                <i class="fa fa-check" /> #{bundle['label.3jj404kj']}
+                            </p:commandLink>
+
+                        </h:panelGrid>
+
+                    </p:panel>
+
+                    <p:separator />
+
+                    <div align="center">
+
+                        <p:commandLink actionListener="#{companyBean.removeCompany()}"                                           
+                                       styleClass="btn btn-success btn-medium"
+                                       >                                                
+
+                            <i class="fa fa-check" /> #{bundle['label.3jj404kj']}
+                        </p:commandLink>
+
+                        <p:commandLink actionListener="#{companyBean.cancelNewCompany()}"
+                                       styleClass="btn btn-default btn-medium btn-space-left"                                           
+                                       >                                                
+
+                            <i class="fa fa-times" /> #{bundle['label.4kfh4jhd']}
+                        </p:commandLink>
+                    </div>
+                </ui:fragment>
+            </h:form>
+        </div>  
+
+        <ui:include src="address_dialog.xhtml" />
+        <ui:include src="coin_dialog.xhtml" />
+        <ui:include src="remove_dialog.xhtml" />
     </h:body>
-    
+
 </html>
