@@ -1,6 +1,5 @@
 package br.com.backend.view.mb;
 
-import br.com.backend.api.ws.rest.client.CoinClient;
 import br.com.backend.api.ws.rest.client.CompanyClient;
 import br.com.backend.business.facade.CoinFacade;
 import br.com.backend.business.facade.CompanyFacade;
@@ -13,10 +12,10 @@ import br.com.backend.business.util.text.TextUtils;
 import br.com.backend.view.util.message.MessageGrowl;
 import br.com.backend.view.util.message.MessageProperties;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.annotation.PostConstruct;
@@ -42,9 +41,6 @@ public class CompanyBean implements Serializable {
     private CompanyClient companyClient;
 
     @EJB
-    private CoinClient coinClient;
-
-    @EJB
     private CoinFacade coinFacade;
 
     private List<Company> companyList;
@@ -60,15 +56,18 @@ public class CompanyBean implements Serializable {
     protected void init() {
 
         loadData();
-        updateCoin();
     }
 
-    private void loadData() {
+    /**
+     * carrega os dados iniciais da página
+     */
+    public void loadData() {
 
         companyList = companyFacade.findAll();
         companyListTmp = companyList;
         coinList = coinFacade.findAll();
         showList = true;
+        search();
     }
 
     /**
@@ -86,6 +85,7 @@ public class CompanyBean implements Serializable {
 
                 for (Company c : companyList) {
 
+                    //procura pelo cnpj, nome e e-mail da empresa
                     if ((TextUtils.containsIgnoreCaracterSpecial(searchText, c.getCnpj())
                             || TextUtils.containsIgnoreCaracterSpecial(searchText, c.getName())
                             || TextUtils.containsIgnoreCaracterSpecial(searchText, c.getEmail()))
@@ -104,6 +104,9 @@ public class CompanyBean implements Serializable {
         }
     }
 
+    /**
+     * prepara as variáveis para cadastrar uma nova empresa
+     */
     public void prepareNewCompany() {
 
         company = new Company();
@@ -113,6 +116,9 @@ public class CompanyBean implements Serializable {
         RequestContext.getCurrentInstance().update("geral-form");
     }
 
+    /**
+     * cancela o cadastro de uma nova empresa
+     */
     public void cancelNewCompany() {
 
         company = null;
@@ -120,6 +126,23 @@ public class CompanyBean implements Serializable {
         RequestContext.getCurrentInstance().update("geral-form");
     }
 
+    /**
+     * prepra as variáveis para a edição de uma empresa
+     *
+     * @param company - entrar com o objeto Company a se editado
+     */
+    public void prepareEditCompany(Company company) {
+
+        this.company = company;
+        this.companyAddress = company.getCompanyAddress();
+        showList = false;
+        showData = true;
+        RequestContext.getCurrentInstance().update("geral-form");
+    }
+
+    /**
+     * remove uma empresa
+     */
     public void removeCompany() {
 
         try {
@@ -140,26 +163,45 @@ public class CompanyBean implements Serializable {
         }
     }
 
+    /**
+     * checa se o cnpj já está cadastrado ou obtem os dados da api para um novo
+     * cadastro
+     */
     public void checkCnpj() {
 
         try {
 
+            //cehca se o cnpj não está nulo ou vazio
             if (company.getCnpj() == null || company.getCnpj().isEmpty()) {
 
                 MessageGrowl.warn(MessageProperties.getString("message.49fgjh43"));
 
             } else {
 
-                Company c = companyFacade.findByCnpj(company.getCnpj());
+                String cnpj = company.getCnpj();
+                Company c = companyFacade.findByCnpj(cnpj);
+
+                //se o objeto Company segnifica que já está cadastrado no banco de dados
                 if (c != null) {
 
-                    MessageGrowl.info(MessageProperties.getString("message.84kj458s"));
-                    company = c;
+                    //mensagem que está cadastrado
+                    MessageGrowl.warn(MessageProperties.getString("message.84kj458s"));
 
                 } else {
 
-                    company = companyClient.findByCnpj(company.getCnpj());
-                    companyAddress = company.getCompanyAddress();
+                    //procura a empresa na api
+                    company = companyClient.findByCnpj(cnpj);
+                    if (company != null) {
+
+                        //seta o endereço da empresa
+                        companyAddress = company.getCompanyAddress();
+
+                    } else {
+
+                        //não foi encontado no base de dados nem na api
+                        company = new Company();
+                        company.setCnpj(cnpj);
+                    }
 
                     showData = true;
                     RequestContext.getCurrentInstance().update("geral-form");
@@ -172,13 +214,22 @@ public class CompanyBean implements Serializable {
         }
     }
 
-    public void saveNewCompany() {
+    /**
+     * salva a companhia podendo ser uma inserção ou atualização
+     */
+    public void saveCompany() {
 
+        //seta o endereço da empresa no objeto Company
         company.setCompanyAddress(companyAddress);
 
+        //validação dos campos
         if (company.getName() == null || company.getName().isEmpty()) {
 
             MessageGrowl.warn(MessageProperties.getString("message.0938jjh4"));
+
+        } else if (company.getEmail() != null && !TextUtils.isValidEmailAddress(company.getEmail())) {
+
+            MessageGrowl.warn(MessageProperties.getString("message.649kfdh5"));
 
         } else if (company.getCompanyAddress().getStreet() == null || company.getCompanyAddress().getStreet().isEmpty()) {
 
@@ -198,38 +249,51 @@ public class CompanyBean implements Serializable {
 
         } else {
 
-            companyFacade.insert(company);
+            //caso o id seja num é uma nova empresa
+            if (company.getId() == null) {
+
+                //inseri uma nova empresa
+                companyFacade.insert(company);
+
+            } else {
+
+                //atualiza uma nova empresa
+                companyFacade.update(company);
+            }
             loadData();
             MessageGrowl.info(MessageProperties.getString("message.843jhsdf"));
             RequestContext.getCurrentInstance().update("geral-form");
         }
     }
 
-    private void updateCoin() {
+    /**
+     *
+     * @param date - entrar com a data
+     * @return - retorna se data passada com relação a atual está a mais de 20
+     * minutos
+     */
+    public boolean lastQuoteUpOver20Minutes(Date date) {
 
-        int delayInSeconds = 60 * 5 * 1000;
+        try {
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+            if (date != null) {
 
-                for (Coin c : coinList) {
+                //diferença em milisegundos
+                long diff = Date.from(Instant.now()).getTime() - date.getTime();
+                long diffInMinutes = (diff / 1000) / 60;
 
-                    try {
+                if (diffInMinutes > 20) {
 
-                        Coin coin = coinClient.findByCode(c.getCode());
-                        coin.setId(c.getId());
-                        coin.setName(c.getName());
-                        coinFacade.update(coin);
-
-                    } catch (Exception e) {
-
-                        LOGGER.error(ConvertStackTrace.toString(e));
-                    }
+                    return true;
                 }
             }
-        }, 0, delayInSeconds);
+
+        } catch (Exception e) {
+
+            LOGGER.error(ConvertStackTrace.toString(e));
+        }
+
+        return false;
     }
 
     //getters && setters

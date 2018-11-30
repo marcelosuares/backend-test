@@ -34,4 +34,14 @@ public class CoinFacade {
 
         return coinDao.findAll();
     }
+
+    /**
+     *
+     * @param code - entrar com o código da moeda (USD, EUR, ARS, GBP, BTC)
+     * @return - retorna o objeto Coin referente
+     */
+    public Coin findByCode(String code) {
+
+        return coinDao.findByCode(code);
+    }
 }

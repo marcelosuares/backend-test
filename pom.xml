@@ -59,9 +59,9 @@
         </dependency>
         
         <dependency>
-            <groupId>org.primefaces.extensions</groupId>
-            <artifactId>all-themes</artifactId>
-            <version>1.0.8</version>
+            <groupId>org.primefaces.theme</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>1.0.10</version>
         </dependency>
         
         <dependency>

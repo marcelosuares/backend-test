@@ -2,6 +2,7 @@ package br.com.backend.business.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,7 +54,7 @@ public class Company implements Serializable {
     private Coin coin;
 
     @JoinColumn(name = "id_company_address", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CompanyAddress companyAddress;
 
     public Company() {
@@ -65,6 +66,15 @@ public class Company implements Serializable {
         this.name = name;
         this.email = email;
         this.companyAddress = companyAddress;
+    }
+
+    public Company(String cnpj, String name, String email,
+            CompanyAddress companyAddress, Coin coin) {
+        this.cnpj = cnpj;
+        this.name = name;
+        this.email = email;
+        this.companyAddress = companyAddress;
+        this.coin = coin;
     }
 
     public Integer getId() {

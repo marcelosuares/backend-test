@@ -39,4 +39,22 @@ public class CompanyAddressDao {
 
         return null;
     }
+
+    /**
+     * atualiza o endereço de empresa específica
+     *
+     * @param companyAddress - entrar com o objeto CompanyAddress a ser
+     * atualizado
+     */
+    public void update(CompanyAddress companyAddress) {
+
+        try {
+
+            entityManager.merge(companyAddress);
+
+        } catch (Exception e) {
+
+            LOGGER.error(ConvertStackTrace.toString(e));
+        }
+    }
 }

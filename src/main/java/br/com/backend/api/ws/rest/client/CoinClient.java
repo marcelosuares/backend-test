@@ -1,6 +1,6 @@
 package br.com.backend.api.ws.rest.client;
 
-import br.com.backend.api.representation.CoinRepresentation;
+import br.com.backend.api.representation.CoinClientRepresentation;
 import br.com.backend.business.model.Coin;
 import br.com.backend.business.util.log.ConvertStackTrace;
 import br.com.backend.business.util.log.SaveLog;
@@ -24,20 +24,29 @@ public class CoinClient {
 
     private static final Logger LOGGER = SaveLog.launchLog(CoinClient.class.getName());
 
+    /**
+     *
+     * @param code - entrar com o código da moeda
+     * @return - retorna o objeto Coin
+     */
     public Coin findByCode(String code) {
 
         try {
 
             Client client = ClientBuilder.newClient();
+            //obtem os dados da api
             Response response = client.target("http://economia.awesomeapi.com.br/json/list/" + code + "/1").
                     request(MediaType.APPLICATION_JSON).get(Response.class);
 
-            List<CoinRepresentation> coinRepresentationList = response.readEntity(new GenericType<List<CoinRepresentation>>() {
-            });
+            List<CoinClientRepresentation> coinRepresentationList
+                    = response.readEntity(new GenericType<List<CoinClientRepresentation>>() {
+                    });
 
+            //verifica se a lista não veio nula
             if (coinRepresentationList != null) {
 
-                CoinRepresentation cr = coinRepresentationList.get(0);
+                CoinClientRepresentation cr = coinRepresentationList.get(0);
+                //retorna o objeto Coin
                 return new Coin(cr.getCode(), null,
                         (!cr.getBid().isEmpty() ? Double.valueOf(cr.getBid()) : null),
                         (!cr.getAsk().isEmpty() ? Double.valueOf(cr.getAsk()) : null),

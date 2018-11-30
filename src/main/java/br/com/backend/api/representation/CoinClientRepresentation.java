@@ -4,7 +4,7 @@ package br.com.backend.api.representation;
  *
  * @author Marcelo Soares <marcelo.suares@yahoo.com.br>
  */
-public class CoinRepresentation {
+public class CoinClientRepresentation {
 
     private String code;
     private String bid;

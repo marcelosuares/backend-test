@@ -38,7 +38,7 @@
                                          styleClass="form-control" 
                                          />
                         </h:panelGrid>
-                        
+
                         <p />
 
                         <h:panelGrid columns="1" styleClass="panelgrid-1">
@@ -48,7 +48,7 @@
                                          styleClass="form-control"
                                          />
                         </h:panelGrid>
-                        
+
                         <p />
 
                         <h:panelGrid columns="1" styleClass="panelgrid-1">
@@ -58,7 +58,7 @@
                                          styleClass="form-control"
                                          />
                         </h:panelGrid>
-                        
+
                         <p />
 
                         <h:panelGrid columns="1" styleClass="panelgrid-1">
@@ -67,6 +67,11 @@
                                          readonly="true" 
                                          styleClass="form-control"
                                          />
+                            <ui:fragment rendered="#{companyBean.lastQuoteUpOver20Minutes(companyBean.company.coin.lastQuote)}">
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>#{bundle['label.834y3943']}</strong> #{bundle['label.4762klhj']}
+                                </div>
+                            </ui:fragment>
                         </h:panelGrid>                                              
 
                     </div>    

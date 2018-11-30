@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tb_coin")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Coin.findAll", query = "SELECT c FROM Coin c")
+    @NamedQuery(name = "Coin.findAll", query = "SELECT c FROM Coin c"),
+    @NamedQuery(name = "Coin.findByCode", query = "SELECT c FROM Coin c WHERE c.code = :code")
 })
 public class Coin implements Serializable {
 

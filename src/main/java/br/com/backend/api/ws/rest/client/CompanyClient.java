@@ -1,6 +1,6 @@
 package br.com.backend.api.ws.rest.client;
 
-import br.com.backend.api.representation.CompanyRepresentation;
+import br.com.backend.api.representation.CompanyClientRepresentation;
 import br.com.backend.business.model.Company;
 import br.com.backend.business.model.CompanyAddress;
 import br.com.backend.business.util.log.ConvertStackTrace;
@@ -21,6 +21,11 @@ public class CompanyClient {
 
     private static final Logger LOGGER = SaveLog.launchLog(CompanyClient.class.getName());
 
+    /**
+     *
+     * @param cnpj - entrar com o cnpj da empresa
+     * @return - retorna um objeto Company com dos dados da empresa
+     */
     public Company findByCnpj(String cnpj) {
 
         try {
@@ -33,19 +38,25 @@ public class CompanyClient {
                 cnpj = cnpj.replaceAll("\\-", "");
 
                 Client client = ClientBuilder.newClient();
+                //obtem os dados da API
                 Response response = client.target("http://www.receitaws.com.br/v1/cnpj/" + cnpj).
                         request(MediaType.APPLICATION_JSON).get(Response.class);
 
-                CompanyRepresentation cr = response.readEntity(CompanyRepresentation.class);
+                CompanyClientRepresentation cr = response.readEntity(CompanyClientRepresentation.class);
 
-                return new Company(cr.getCnpj(), cr.getNome(), cr.getEmail(),
-                        new CompanyAddress(cr.getLogradouro(),
-                                (!cr.getNumero().isEmpty() ? Integer.valueOf(cr.getNumero()) : null), cr.getBairro(),
-                                cr.getComplemento(), cr.getCep(), cr.getMunicipio()));
+                //verifica se contem dados no objeto
+                if (cr != null && cr.getCnpj() != null) {
 
+                    //retorna o objeto Company com dos dados da empresa
+                    return new Company(cr.getCnpj(), cr.getNome(), cr.getEmail(),
+                            new CompanyAddress(cr.getLogradouro(),
+                                    (!cr.getNumero().isEmpty() ? Integer.valueOf(cr.getNumero()) : null), cr.getBairro(),
+                                    cr.getComplemento(), cr.getCep(), cr.getMunicipio()));
+
+                }
             }
 
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
 
             LOGGER.error(ConvertStackTrace.toString(e));
         }

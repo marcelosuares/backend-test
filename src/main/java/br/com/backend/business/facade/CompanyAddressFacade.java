@@ -11,7 +11,7 @@ import javax.inject.Inject;
  */
 @Stateless
 public class CompanyAddressFacade {
-
+    
     @Inject
     private CompanyAddressDao companyAddressDao;
 
@@ -21,7 +21,18 @@ public class CompanyAddressFacade {
      * @return - retorna o objeto CompanyAddress inserido
      */
     public CompanyAddress insert(CompanyAddress companyAddress) {
-
+        
         return companyAddressDao.insert(companyAddress);
+    }
+
+    /**
+     * atualiza o endereço de empresa específica
+     *
+     * @param companyAddress - entrar com o objeto CompanyAddress a ser
+     * atualizado
+     */
+    public void update(CompanyAddress companyAddress) {
+        
+        companyAddressDao.update(companyAddress);
     }
 }

@@ -4,8 +4,7 @@ package br.com.backend.api.representation;
  *
  * @author Marcelo Soares <marcelo.suares@yahoo.com.br>
  */
-
-public class CompanyRepresentation {
+public class CompanyClientRepresentation {
 
     private String nome;
     private String cnpj;
@@ -16,7 +15,6 @@ public class CompanyRepresentation {
     private String cep;
     private String bairro;
     private String municipio;
-    private String uf;
 
     public String getNome() {
         return nome;
@@ -90,14 +88,6 @@ public class CompanyRepresentation {
         this.municipio = municipio;
     }
 
-    public String getUf() {
-        return uf;
-    }
-
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
-
     @Override
     public String toString() {
         return "CompanyRepresentation{"
@@ -110,7 +100,6 @@ public class CompanyRepresentation {
                 + ", cep=" + cep
                 + ", bairro=" + bairro
                 + ", municipio=" + municipio
-                + ", uf=" + uf
                 + '}';
     }
 }

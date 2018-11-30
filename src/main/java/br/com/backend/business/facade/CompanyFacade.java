@@ -39,6 +39,9 @@ public class CompanyFacade {
      */
     public void update(Company company) {
 
+        //inseri o objeto CompanyAddress - endereço da empresa antes de inserir a mesma
+        companyAddressFacade.update(company.getCompanyAddress());
+        
         companyDao.update(company);
     }
 

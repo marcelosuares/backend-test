@@ -7,7 +7,7 @@ CREATE TABLE tb_company_address (
     
     id INT DEFAULT nextval('sq_company_address') NOT NULL,
     tx_street VARCHAR(100) NOT NULL,
-    it_number INT NOT NULL,
+    it_number INT,
     tx_neighborhood VARCHAR(100),
     tx_complement VARCHAR(100),
     tx_cep VARCHAR(15) NOT NULL,    

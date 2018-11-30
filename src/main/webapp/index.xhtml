@@ -75,24 +75,40 @@
                     </div>
 
                     <div style="padding-top: 40px">
+
+                        <p:poll interval="60"                  
+                                listener="#{companyBean.loadData()}"
+                                update="geral-form"
+                                global="false"
+                                />
+
                         <p:dataTable id="datatable-1"     
                                      widgetVar="datatable-1"
                                      value="#{companyBean.companyList}"
                                      var="company"
                                      sortBy="#{company.name}"
                                      emptyMessage="#{bundle['label.66ietari']}"
-                                     paginator="true" rows="10" pageLinks="5"
+                                     lazy="true"    
+                                     paginator="true" rows="5" pageLinks="5"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      currentPageReportTemplate="#{bundle['label.7clebj8y']}: {currentPage} #{bundle['label.7v0wvsgr']} {totalPages}"
                                      >   
 
                             <f:facet name="header">
-                                <p:inputText id="globalFilter" style="display: none"/>
-                                <div style="text-align: left">
-                                    <small>
-                                        #{bundle['label.13ah52xx']}: #{companyBean.companyList.size()}
-                                    </small>
-                                </div>                                                        
+                                <div class="datatable-label-info-header">
+                                    <!-- Left -->
+                                    <div class="datatable-label-info-header-left" style="margin-left: 10px">
+                                        <small>
+                                            #{bundle['label.13ah52xx']}: #{companyBean.companyList.size()}
+                                        </small>
+                                    </div>   
+
+                                    <div class="datatable-label-info-header-right">
+                                        <small>
+                                            <h:outputText value="#{bundle['label.568ejhfg']}: #{formatDateTimeView.dateTimeNowFormatBrazilian()}" />
+                                        </small>
+                                    </div>
+                                </div>
                             </f:facet>
 
                             <p:column headerText="#{bundle['label.3893kjks']}" 
@@ -144,6 +160,22 @@
 
                                     <div class="div-btn-small-icon">
                                         <i class="fa fa-money" />
+                                    </div>
+                                </p:commandLink>
+
+                            </p:column>
+
+                            <p:column width="60" 
+                                      styleClass="align-center"
+                                      >
+
+                                <p:commandLink actionListener="#{companyBean.prepareEditCompany(company)}"
+                                               styleClass="btn btn-default btn-small"    
+                                               title="#{bundle['label.5kj34kj4']}"
+                                               >
+
+                                    <div class="div-btn-small-icon">
+                                        <i class="fa fa-pencil" />
                                     </div>
                                 </p:commandLink>
 
@@ -285,11 +317,11 @@
 
                         <div align="center">
 
-                            <p:commandLink actionListener="#{companyBean.saveNewCompany()}"                                           
+                            <p:commandLink actionListener="#{companyBean.saveCompany()}"                                           
                                            styleClass="btn btn-success btn-medium"
                                            >                                                
 
-                                <i class="fa fa-check" /> #{bundle['label.3jj404kj']}
+                                <i class="fa fa-check" /> #{bundle['label.38dj349d']}
                             </p:commandLink>
 
                             <p:commandLink actionListener="#{companyBean.cancelNewCompany()}"

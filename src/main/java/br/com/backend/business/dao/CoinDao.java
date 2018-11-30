@@ -60,4 +60,32 @@ public class CoinDao {
 
         return null;
     }
+    
+     /**
+     *
+     * @param code - entrar com o código da moeda (USD, EUR, ARS, GBP, BTC)
+     * @return - retorna o objeto Coin referente
+     */
+    public Coin findByCode(String code) {
+
+        try {
+
+            TypedQuery<Coin> typedQuery = entityManager
+                    .createNamedQuery("Coin.findByCode", Coin.class);
+            typedQuery.setParameter("code", code);
+            typedQuery.setHint("javax.persistence.cache.storeMode", "REFRESH");
+
+            List<Coin> coinList = typedQuery.getResultList();
+            if (coinList.size() == 1) {
+
+                return coinList.get(0);
+            }
+
+        } catch (Exception e) {
+
+            LOGGER.error(ConvertStackTrace.toString(e));
+        }
+
+        return null;
+    }
 }

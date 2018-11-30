@@ -12,7 +12,8 @@ import javax.faces.convert.FacesConverter;
 import org.apache.log4j.Logger;
 
 /**
- * @author Marcelo Soares <marcelo@vztech.com.br>
+ *
+ * @author Marcelo Soares <marcelo.suares@yahoo.com.br>
  */
 @FacesConverter(value = "coinConverter")
 public class CoinConverter implements Converter {

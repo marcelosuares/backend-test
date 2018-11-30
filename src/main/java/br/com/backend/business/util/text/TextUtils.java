@@ -3,6 +3,8 @@ package br.com.backend.business.util.text;
 import br.com.backend.business.util.log.ConvertStackTrace;
 import br.com.backend.business.util.log.SaveLog;
 import java.text.Normalizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 /**
@@ -65,5 +67,27 @@ public class TextUtils {
         }
 
         return null;
+    }
+
+    /**
+     *
+     * @param email - entrar com o e-mail
+     * @return - retrona TRUE caso o e-mail seja válido
+     */
+    public static boolean isValidEmailAddress(String email) {
+
+        try {
+
+            Pattern pattern = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
+            Matcher matcher = pattern.matcher(email);
+
+            return matcher.matches();
+
+        } catch (Exception e) {
+
+            LOGGER.error(ConvertStackTrace.toString(e));
+        }
+
+        return false;
     }
 }

@@ -13,11 +13,10 @@ public class SaveLog {
 
     private final static String PATH = "/var/log/backend-test";
 
-    /*
-     * Esta é uma classe Helper, todos os seus metodos são estaticos,
-     * assim, está classe não deve nunca ser instanciada por outro objeto.
-     * Para resolver este problema adiciona-se um construtor privado para sobreescrever
-     * o comportamento padrão do construtor implicito.
+    /**
+     *
+     * @param nameClass - entrar com o nome da classe
+     * @return - retorna o lançamento do log
      */
     public static Logger launchLog(String nameClass) {
 
