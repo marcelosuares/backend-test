@@ -63,14 +63,13 @@ public class Coin implements Serializable {
     }
 
     public Coin(String code, String name, double bid, double ask,
-            Date lastQuote, List<Company> companyList) {
+            Date lastQuote) {
 
         this.code = code;
         this.name = name;
         this.bid = bid;
         this.ask = ask;
         this.lastQuote = lastQuote;
-        this.companyList = companyList;
     }
 
     public Integer getId() {

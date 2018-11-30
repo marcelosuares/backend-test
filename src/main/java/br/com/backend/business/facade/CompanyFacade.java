@@ -16,12 +16,18 @@ public class CompanyFacade {
     @Inject
     private CompanyDao companyDao;
 
+    @Inject
+    private CompanyAddressFacade companyAddressFacade;
+
     /**
      *
      * @param company - entrar com o objeto Company a ser inserido
      * @return - retorna o objeto Company inserido
      */
     public Company insert(Company company) {
+
+        //inseri o objeto CompanyAddress - endereço da empresa antes de inserir a mesma
+        companyAddressFacade.insert(company.getCompanyAddress());
 
         return companyDao.insert(company);
     }
@@ -53,5 +59,15 @@ public class CompanyFacade {
     public List<Company> findAll() {
 
         return companyDao.findAll();
+    }
+
+    /**
+     *
+     * @param cnpj - entrar com o cnpj
+     * @return - retorna o objeto Company referente
+     */
+    public Company findByCnpj(String cnpj) {
+
+        return companyDao.findByCnpj(cnpj);
     }
 }

@@ -41,7 +41,7 @@ public class CompanyAddress implements Serializable {
     private String street;
 
     @Column(name = "it_number")
-    private int number;
+    private Integer number;
 
     @Column(name = "tx_neighborhood")
     private String neighborhood;
@@ -61,7 +61,7 @@ public class CompanyAddress implements Serializable {
     public CompanyAddress() {
     }
 
-    public CompanyAddress(String street, int number, String neighborhood,
+    public CompanyAddress(String street, Integer number, String neighborhood,
             String complement, String cep, String city) {
         this.street = street;
         this.number = number;
@@ -87,11 +87,11 @@ public class CompanyAddress implements Serializable {
         this.street = street;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 

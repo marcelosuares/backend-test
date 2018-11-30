@@ -98,4 +98,32 @@ public class CompanyDao {
 
         return null;
     }
+
+    /**
+     *
+     * @param cnpj - entrar com o cnpj 
+     * @return - retorna o objeto Company referente
+     */
+    public Company findByCnpj(String cnpj) {
+
+        try {
+
+            TypedQuery<Company> typedQuery = entityManager
+                    .createNamedQuery("Company.findByCnpj", Company.class);
+            typedQuery.setParameter("cnpj", cnpj);
+            typedQuery.setHint("javax.persistence.cache.storeMode", "REFRESH");
+
+            List<Company> companyList = typedQuery.getResultList();
+            if (companyList.size() == 1) {
+
+                return companyList.get(0);
+            }
+
+        } catch (Exception e) {
+
+            LOGGER.error(ConvertStackTrace.toString(e));
+        }
+
+        return null;
+    }
 }

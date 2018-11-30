@@ -7,7 +7,6 @@ package br.com.backend.api.representation;
 public class CoinRepresentation {
 
     private String code;
-    private String name;
     private String bid;
     private String ask;
 
@@ -17,14 +16,6 @@ public class CoinRepresentation {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getBid() {
@@ -47,7 +38,6 @@ public class CoinRepresentation {
     public String toString() {
         return "CoinRepresentation{"
                 + "code=" + code
-                + ", name=" + name
                 + ", bid=" + bid
                 + ", ask=" + ask
                 + '}';

@@ -24,7 +24,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tb_company")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")
+    @NamedQuery(name = "Company.findAll",
+            query = "SELECT c FROM Company c")
+    ,
+    @NamedQuery(name = "Company.findByCnpj",
+            query = "SELECT c FROM Company c WHERE c.cnpj = :cnpj")
 })
 public class Company implements Serializable {
 
@@ -55,12 +59,11 @@ public class Company implements Serializable {
     public Company() {
     }
 
-    public Company(String cnpj, String name, String email, Coin coin,
+    public Company(String cnpj, String name, String email,
             CompanyAddress companyAddress) {
         this.cnpj = cnpj;
         this.name = name;
         this.email = email;
-        this.coin = coin;
         this.companyAddress = companyAddress;
     }
 

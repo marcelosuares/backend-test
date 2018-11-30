@@ -172,52 +172,142 @@
 
                 <ui:fragment rendered="#{companyBean.showList eq false}">
 
-                    <h3>#{bundle['label.353jf83l']}</h3>
-                    <p:panel header="#{bundle['label.534kjgj3']}">
+                    <p:panel header="#{companyBean.company.id eq null ? bundle['label.33774599'] : bundle['label.534kjgj3'] }"
+                             rendered="#{companyBean.showData eq false}"
+                             >
 
-                        <h:panelGrid columns="1">
+                        <div align="center">
+                            <h:panelGrid columns="1" style="width: 60%">
 
-                            <h:outputText value="#{bundle['label.3893kjks']}:" />
-                            <p:inputMask value="#{companyBean.company.cnpj}" mask="99.999.999/9999-99"/>
+                                <h:outputText value="#{bundle['label.3893kjks']}:" />
+                                <p:inputMask value="#{companyBean.company.cnpj}" 
+                                             mask="99.999.999/9999-99"
+                                             styleClass="form-control"
+                                             />
 
-                            <p />
+                                <p />
 
-                            <p:commandLink actionListener="#{companyBean.checkCnpj()}"                                           
+                                <h:panelGrid columns="2">
+                                    <p:commandLink actionListener="#{companyBean.checkCnpj()}"                                           
+                                                   styleClass="btn btn-success btn-medium"
+                                                   >                                                
+
+                                        <i class="fa fa-check" /> #{bundle['label.3jj404kj']}
+                                    </p:commandLink>
+
+                                    <p:commandLink actionListener="#{companyBean.cancelNewCompany()}"                                           
+                                                   styleClass="btn btn-default btn-medium btn-space-left"
+                                                   >                                                
+
+                                        <i class="fa fa-times" /> #{bundle['label.4kfh4jhd']}
+                                    </p:commandLink>
+                                </h:panelGrid>
+
+                            </h:panelGrid>
+                        </div>
+
+                    </p:panel>
+
+                    <p:panel header="#{bundle['label.353jf83l']}"
+                             rendered="#{companyBean.showData eq true}"
+                             >
+
+                        <div align="center">
+                            <h:panelGrid columns="1" style="width: 60%">
+                                <h:outputText value="#{bundle['label.3893kjks']}:" />
+                                <p:inputText value="#{companyBean.company.cnpj}" 
+                                             readonly="true" 
+                                             styleClass="form-control"
+                                             />
+                                <p />
+                                <h:outputText value="#{bundle['label.34krkwh3']}:" />
+                                <p:inputText value="#{companyBean.company.name}" 
+                                             styleClass="form-control"
+                                             />
+                                <p />
+                                <h:outputText value="#{bundle['label.934dfks0']}:" />
+                                <p:inputText value="#{companyBean.company.email}" 
+                                             styleClass="form-control"
+                                             />
+                                <hr />
+                                <h:outputText value="#{bundle['label.98ehjdh9']}:" />
+                                <p:inputText value="#{companyBean.companyAddress.street}" 
+                                             styleClass="form-control"
+                                             />
+                                <p />
+                                <h:outputText value="#{bundle['label.48djk589']}:" />
+                                <p:inputText value="#{companyBean.companyAddress.number}" 
+                                             styleClass="form-control"
+                                             />
+                                <p />
+                                <h:outputText value="#{bundle['label.2743khdu']}:" />
+                                <p:inputText value="#{companyBean.companyAddress.complement}" 
+                                             styleClass="form-control"
+                                             />
+                                <p />
+                                <h:outputText value="#{bundle['label.94huehw3']}:" />
+                                <p:inputMask value="#{companyBean.companyAddress.cep}" 
+                                             mask="99.999-999"
+                                             styleClass="form-control"
+                                             />
+                                <p />
+                                <h:outputText value="#{bundle['label.4bhh4ikh']}:" />
+                                <p:inputText value="#{companyBean.companyAddress.neighborhood}" 
+                                             styleClass="form-control"
+                                             />
+                                <p />
+                                <h:outputText value="#{bundle['label.5978fk4j']}:" />
+                                <p:inputText value="#{companyBean.companyAddress.city}" 
+                                             styleClass="form-control"
+                                             />
+
+                                <hr />
+                                <h:outputText value="#{bundle['label.5khfuh58']}:" />
+                                <h:selectOneMenu value="#{companyBean.company.coin}"  
+                                                 styleClass="form-control"
+                                                 converter="coinConverter"
+                                                 >
+                                    <f:selectItem itemLabel="#{bundle['label.459jhd33']}" 
+                                                  itemValue="" 
+                                                  />
+                                    <f:selectItems value="#{companyBean.coinList}"
+                                                   var="coin"
+                                                   itemLabel="#{coin.code} - #{coin.name}"
+                                                   />
+                                </h:selectOneMenu>
+
+                            </h:panelGrid>
+                        </div>
+                    </p:panel>
+
+                    <ui:fragment rendered="#{companyBean.showData eq true}">
+                        <hr />
+
+                        <div align="center">
+
+                            <p:commandLink actionListener="#{companyBean.saveNewCompany()}"                                           
                                            styleClass="btn btn-success btn-medium"
                                            >                                                
 
                                 <i class="fa fa-check" /> #{bundle['label.3jj404kj']}
                             </p:commandLink>
 
-                        </h:panelGrid>
+                            <p:commandLink actionListener="#{companyBean.cancelNewCompany()}"
+                                           styleClass="btn btn-default btn-medium btn-space-left"                                           
+                                           >                                                
 
-                    </p:panel>
-
-                    <p:separator />
-
-                    <div align="center">
-
-                        <p:commandLink actionListener="#{companyBean.removeCompany()}"                                           
-                                       styleClass="btn btn-success btn-medium"
-                                       >                                                
-
-                            <i class="fa fa-check" /> #{bundle['label.3jj404kj']}
-                        </p:commandLink>
-
-                        <p:commandLink actionListener="#{companyBean.cancelNewCompany()}"
-                                       styleClass="btn btn-default btn-medium btn-space-left"                                           
-                                       >                                                
-
-                            <i class="fa fa-times" /> #{bundle['label.4kfh4jhd']}
-                        </p:commandLink>
-                    </div>
+                                <i class="fa fa-times" /> #{bundle['label.4kfh4jhd']}
+                            </p:commandLink>
+                        </div>
+                    </ui:fragment>
                 </ui:fragment>
             </h:form>
         </div>  
-
-        <ui:include src="address_dialog.xhtml" />
-        <ui:include src="coin_dialog.xhtml" />
-        <ui:include src="remove_dialog.xhtml" />
+        <br />
+        <br />
+        <ui:include src="dialog/address_dialog.xhtml" />
+        <ui:include src="dialog/coin_dialog.xhtml" />
+        <ui:include src="dialog/remove_dialog.xhtml" />
     </h:body>
 
 </html>
