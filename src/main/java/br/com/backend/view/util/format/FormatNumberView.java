@@ -3,6 +3,7 @@ package br.com.backend.view.util.format;
 import br.com.backend.business.util.log.ConvertStackTrace;
 import br.com.backend.business.util.log.SaveLog;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
@@ -26,7 +27,8 @@ public class FormatNumberView implements Serializable {
 
         try {
 
-            return "R$ " + String.format("%.2f", value);
+            NumberFormat formatter = NumberFormat.getCurrencyInstance();
+            return formatter.format(value);
 
         } catch (Exception e) {
 
