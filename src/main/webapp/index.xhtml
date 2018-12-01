@@ -255,26 +255,32 @@
                                 <h:outputText value="#{bundle['label.34krkwh3']}:" />
                                 <p:inputText value="#{companyBean.company.name}" 
                                              styleClass="form-control"
+                                             maxlength="100"
                                              />
                                 <p />
                                 <h:outputText value="#{bundle['label.934dfks0']}:" />
                                 <p:inputText value="#{companyBean.company.email}" 
                                              styleClass="form-control"
+                                             maxlength="200"
                                              />
                                 <hr />
                                 <h:outputText value="#{bundle['label.98ehjdh9']}:" />
                                 <p:inputText value="#{companyBean.companyAddress.street}" 
                                              styleClass="form-control"
+                                             maxlength="100"
                                              />
                                 <p />
                                 <h:outputText value="#{bundle['label.48djk589']}:" />
                                 <p:inputText value="#{companyBean.companyAddress.number}" 
                                              styleClass="form-control"
-                                             />
+                                             >
+                                    <p:keyFilter regEx="/[0-9_]/i"/>  
+                                </p:inputText>
                                 <p />
                                 <h:outputText value="#{bundle['label.2743khdu']}:" />
                                 <p:inputText value="#{companyBean.companyAddress.complement}" 
                                              styleClass="form-control"
+                                             maxlength="100"
                                              />
                                 <p />
                                 <h:outputText value="#{bundle['label.94huehw3']}:" />
@@ -286,11 +292,13 @@
                                 <h:outputText value="#{bundle['label.4bhh4ikh']}:" />
                                 <p:inputText value="#{companyBean.companyAddress.neighborhood}" 
                                              styleClass="form-control"
+                                             maxlength="100"
                                              />
                                 <p />
                                 <h:outputText value="#{bundle['label.5978fk4j']}:" />
                                 <p:inputText value="#{companyBean.companyAddress.city}" 
                                              styleClass="form-control"
+                                             maxlength="100"
                                              />
 
                                 <hr />
