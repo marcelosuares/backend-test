@@ -160,6 +160,7 @@ public class CompanyBean implements Serializable {
         } catch (Exception e) {
 
             LOGGER.error(ConvertStackTrace.toString(e));
+            MessageGrowl.error(MessageProperties.getString("message.4rkjh4jh"));
         }
     }
 
@@ -219,50 +220,58 @@ public class CompanyBean implements Serializable {
      */
     public void saveCompany() {
 
-        //seta o endereço da empresa no objeto Company
-        company.setCompanyAddress(companyAddress);
+        try {
 
-        //validação dos campos
-        if (company.getName() == null || company.getName().isEmpty()) {
+            //seta o endereço da empresa no objeto Company
+            company.setCompanyAddress(companyAddress);
 
-            MessageGrowl.warn(MessageProperties.getString("message.0938jjh4"));
+            //validação dos campos
+            if (company.getName() == null || company.getName().isEmpty()) {
 
-        } else if (company.getEmail() != null && !TextUtils.isValidEmailAddress(company.getEmail())) {
+                MessageGrowl.warn(MessageProperties.getString("message.0938jjh4"));
 
-            MessageGrowl.warn(MessageProperties.getString("message.649kfdh5"));
+            } else if (company.getEmail() != null && !TextUtils.isValidEmailAddress(company.getEmail())) {
 
-        } else if (company.getCompanyAddress().getStreet() == null || company.getCompanyAddress().getStreet().isEmpty()) {
+                MessageGrowl.warn(MessageProperties.getString("message.649kfdh5"));
 
-            MessageGrowl.warn(MessageProperties.getString("message.03hfjdls"));
+            } else if (company.getCompanyAddress().getStreet() == null || company.getCompanyAddress().getStreet().isEmpty()) {
 
-        } else if (company.getCompanyAddress().getCep() == null || company.getCompanyAddress().getCep().isEmpty()) {
+                MessageGrowl.warn(MessageProperties.getString("message.03hfjdls"));
 
-            MessageGrowl.warn(MessageProperties.getString("message.37kjsdfh"));
+            } else if (company.getCompanyAddress().getCep() == null || company.getCompanyAddress().getCep().isEmpty()) {
 
-        } else if (company.getCompanyAddress().getCity() == null || company.getCompanyAddress().getCity().isEmpty()) {
+                MessageGrowl.warn(MessageProperties.getString("message.37kjsdfh"));
 
-            MessageGrowl.warn(MessageProperties.getString("message.4ii345ii"));
+            } else if (company.getCompanyAddress().getCity() == null || company.getCompanyAddress().getCity().isEmpty()) {
 
-        } else if (company.getCoin() == null) {
+                MessageGrowl.warn(MessageProperties.getString("message.4ii345ii"));
 
-            MessageGrowl.warn(MessageProperties.getString("message.94jk45kk"));
+            } else if (company.getCoin() == null) {
 
-        } else {
-
-            //caso o id seja num é uma nova empresa
-            if (company.getId() == null) {
-
-                //inseri uma nova empresa
-                companyFacade.insert(company);
+                MessageGrowl.warn(MessageProperties.getString("message.94jk45kk"));
 
             } else {
 
-                //atualiza uma nova empresa
-                companyFacade.update(company);
+                //caso o id seja num é uma nova empresa
+                if (company.getId() == null) {
+
+                    //inseri uma nova empresa
+                    companyFacade.insert(company);
+
+                } else {
+
+                    //atualiza uma nova empresa
+                    companyFacade.update(company);
+                }
+                loadData();
+                MessageGrowl.info(MessageProperties.getString("message.843jhsdf"));
+                RequestContext.getCurrentInstance().update("geral-form");
             }
-            loadData();
-            MessageGrowl.info(MessageProperties.getString("message.843jhsdf"));
-            RequestContext.getCurrentInstance().update("geral-form");
+
+        } catch (Exception e) {
+            
+            LOGGER.error(ConvertStackTrace.toString(e));
+            MessageGrowl.error(MessageProperties.getString("message.4rkjh4jh"));
         }
     }
 
