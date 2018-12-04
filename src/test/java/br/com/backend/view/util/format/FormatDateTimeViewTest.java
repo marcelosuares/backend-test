@@ -2,7 +2,6 @@ package br.com.backend.view.util.format;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
