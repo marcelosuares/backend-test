@@ -24,7 +24,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         
-         resources.add(br.com.backend.api.ws.rest.provider.CompanyProvider.class);
          resources.add(br.com.backend.api.ws.rest.provider.CoinProvider.class);
+         resources.add(br.com.backend.api.ws.rest.provider.CompanyProvider.class);
     }
 }

@@ -23,7 +23,7 @@ public class FormatNumberView implements Serializable {
      * @param value - entrar com o valor em double
      * @return - retorna o valor formatado em R$ 0,00
      */
-    public String doubleToMoneyBrString(double value) {
+    public static String doubleToMoneyBrString(double value) {
 
         try {
 
