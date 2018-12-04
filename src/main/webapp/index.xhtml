@@ -204,7 +204,7 @@
 
                 <ui:fragment rendered="#{companyBean.showList eq false}">
 
-                    <p:panel header="#{companyBean.company.id eq null ? bundle['label.33774599'] : bundle['label.534kjgj3'] }"
+                    <p:panel header="#{bundle['label.33774599']}"
                              rendered="#{companyBean.showData eq false}"
                              >
 
@@ -240,7 +240,7 @@
 
                     </p:panel>
 
-                    <p:panel header="#{bundle['label.353jf83l']}"
+                    <p:panel header="#{companyBean.company.id eq null ? bundle['label.353jf83l'] : bundle['label.6wkf53fr'] }"
                              rendered="#{companyBean.showData eq true}"
                              >
 
